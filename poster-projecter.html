@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        body, html {
+            padding: 0;
+            margin: 0;
+            background-color: black;
+        }
+        .content-wrapper {
+            background-color: black;
+            height: 100vh;
+            width: 100vw;
+            overflow: visible;
+/*            perspective: 500px;*/
+            transform: rotate(90deg);
+        }
+        .card-column {
+            width: 132px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 11px;
+        }
+        .card-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+/*            transform-style: preserve-3d;*/
+/*            transform: rotateX(2deg);*/
+/*            transform-origin: center;*/
+        }
+        .card {
+            margin-bottom: 25px;
+            height: 220px;
+            width: 100% !important;
+            background-color: white;
+            outline: 1px solid white;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            opacity: 1;
+            
+        }
+        .card-column:first-of-type{
+            margin-left: 278px;
+        }
+        .card-column:last-of-type{
+            margin-right: 0;
+        }
+        .card-column:nth-of-type(odd),
+        {
+            margin-top: 160px
+        }
+
+        .card-column:nth-of-type(even),
+        {
+            margin-top: 140px
+        }
+        
+        .active {
+            opacity: 1;
+        }
+        
+        
+        
+        /* ---card specifics--- */
+        #c1{height: 222px; width: 200px}
+        #c2{height: 215px; width: 200px}
+        #c3{height: 240px; width: 200px}
+        #c5{height: 215px; width: 200px}
+        #c4{height: 215px; width: 200px}
+        #c6{height: 205px; width: 200px}
+        #c8{height: 209px; width: 200px}
+        #c9{height: 223px; width: 200px}
+        #c7{height: 203px; width: 200px}
+        #c10{height: 214px; width: 200px}
+        #c11{height: 220px; width: 200px}
+        #c13{height: 206px; width: 200px}
+    </style>
+</head>
+<body>
+   <div class="content-wrapper">
+    <div class="card-wrapper">
+        <div class="card-column">
+            <div class="card" id="c1"></div>
+            <div class="card" id="c6"></div>
+            <div class="card" id="c11"></div>        
+        </div>
+        
+        <div class="card-column">
+            <div class="card" id="c2"></div>
+            <div class="card" id="c7"></div>
+            <div class="card" id="c12"></div>
+        </div>
+        
+        <div class="card-column">
+            <div class="card" id="c3"></div>
+            <div class="card" id="c8"></div>
+            <div class="card" id="c13"></div>
+        </div>
+        
+        <div class="card-column">
+            <div class="card" id="c4"></div>
+            <div class="card" id="c9"></div>
+            <div class="card" id="c14"></div>
+        </div>
+        
+        <div class="card-column">
+            <div class="card" id="c5"></div>
+            <div class="card" id="c10"></div>
+            <div class="card" id="c15"></div>
+        </div>
+        </div>
+    </div>
+    <script>
+        const cardList = document.getElementsByClassName('card');
+        var i = 0;
+        
+        function getRandomInt(min, max){
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+        
+        function chase(cardIndex) {
+            cardList[cardIndex].classList.add('active');
+            window.setTimeout(() => {
+                cardList[cardIndex].classList.remove('active');
+            }, 6000);   
+            window.setTimeout(() => {
+                if(cardIndex + 1 >= cardList.length){
+                    cardIndex = -1;
+                }
+                chase(cardIndex + 1)
+            }, 1000);   
+        }
+        
+        function spotlight(spotlightedArray) {
+            let random;
+            if(spotlightedArray.length === cardList.length){
+                spotlightedArray = [];
+            }
+            do{
+                random = getRandomInt(0, cardList.length);
+                console.log(random);
+            } while(spotlightedArray.includes(random));
+            spotlightedArray.push(random);
+            cardList[random].classList.add('active');
+            window.setTimeout(() => {
+                cardList[random].classList.remove('active');
+            }, 5000);   
+            window.setTimeout(() => {
+                spotlight(spotlightedArray);
+            }, 6000);
+        }
+
+        
+        
+//        spotlight([]);
+    </script>
+    
+</body>
+</html>
