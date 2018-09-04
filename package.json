@@ -1,0 +1,20 @@
+{
+  "name": "poster-wall",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "live-server --no-browser "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandondc741/poster-wall.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brandondc741/poster-wall/issues"
+  },
+  "homepage": "https://github.com/brandondc741/poster-wall#readme"
+}

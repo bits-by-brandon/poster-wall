@@ -15,19 +15,22 @@
             background-color: black;
         }
         .content-wrapper {
-            background-color: black;
             height: 100vh;
             width: 100vw;
             overflow: visible;
-/*            perspective: 500px;*/
-            transform: rotate(90deg);
+            position: absolute;
+            top: 0;
+            left: 0;
+            /*perspective: 500px;*/
+            transform: rotate(90deg) translate(300px, -110px);
         }
         .card-column {
-            width: 132px;
+            width: 111px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-right: 11px;
+            margin-right: 10px;
+            position: relative;
         }
         .card-wrapper {
             display: flex;
@@ -37,51 +40,50 @@
 /*            transform-origin: center;*/
         }
         .card {
-            margin-bottom: 25px;
+            margin-bottom: 14px;
             height: 220px;
-            width: 100% !important;
+            width: 100%;
             background-color: white;
             outline: 1px solid white;
             opacity: 0;
             transition: opacity 2s ease-in-out;
-            opacity: 1;
-            
+            will-change: opacity;
         }
         .card-column:first-of-type{
-            margin-left: 278px;
+            margin-left: 0;
         }
         .card-column:last-of-type{
             margin-right: 0;
         }
-        .card-column:nth-of-type(odd),
+        .card-column:nth-of-type(odd)
         {
-            margin-top: 160px
+            /*margin-top: 160px*/
         }
 
-        .card-column:nth-of-type(even),
-        {
-            margin-top: 140px
+        .card-column:nth-of-type(even) {
+            margin-top: 140px;
         }
-        
+
         .active {
             opacity: 1;
         }
-        
-        
-        
+
         /* ---card specifics--- */
-        #c1{height: 222px; width: 200px}
-        #c2{height: 215px; width: 200px}
-        #c3{height: 240px; width: 200px}
-        #c5{height: 215px; width: 200px}
-        #c4{height: 215px; width: 200px}
-        #c6{height: 205px; width: 200px}
-        #c8{height: 209px; width: 200px}
-        #c9{height: 223px; width: 200px}
-        #c7{height: 203px; width: 200px}
-        #c10{height: 214px; width: 200px}
-        #c11{height: 220px; width: 200px}
-        #c13{height: 206px; width: 200px}
+        #c1{height: 223px;}
+        #c2{height: 216px; width: calc(100% - 1px)}
+        #c3{height: 240px; width: calc(100% + 6px)}
+        #c4{height: 204px;}
+        #c5{height: 217px; width: calc(100% + 4px);}
+        #c6{height: 203px;}
+        #c7{height: 208px;}
+        #c8{height: 213px; width: calc(100% - 1px)}
+        #c9{height: 227px;}
+        #c10{height: 230px;}
+        #c11{height: 222px;}
+        #c12{height: 236px; width: calc(100% - 4px)}
+        #c13{height: 206px;}
+        #c14{height: 233px;}
+        #c15{height: 230px; width: calc(100% - 5px)}
     </style>
 </head>
 <body>
@@ -120,23 +122,39 @@
     </div>
     <script>
         const cardList = document.getElementsByClassName('card');
-        var i = 0;
+        let i = 0;
         
         function getRandomInt(min, max){
             return Math.floor(Math.random() * (max - min) + min);
         }
+
+        function scan(cardList) {
+          for(let i = 0; i < cardList.length; i++){
+            const y = cardList[i].getBoundingClientRect().left;
+            setTimeout(function () {
+              cardList[i].classList.add('active');
+            }, y * 1.2);
+            setTimeout(function () {
+              cardList[i].classList.remove('active');
+            }, y * 1.2 + 2000);
+          }
+          setTimeout(function () {
+            scan(cardList);
+          }, 6000);
+        }
         
-        function chase(cardIndex) {
+        function chase(cardList, cardIndex) {
             cardList[cardIndex].classList.add('active');
             window.setTimeout(() => {
                 cardList[cardIndex].classList.remove('active');
-            }, 6000);   
+            }, 2000);
             window.setTimeout(() => {
                 if(cardIndex + 1 >= cardList.length){
-                    cardIndex = -1;
+                  chase(cardList, 0);
+                } else {
+                  chase(cardList, cardIndex + 1);
                 }
-                chase(cardIndex + 1)
-            }, 1000);   
+            }, 1000);
         }
         
         function spotlight(spotlightedArray) {
@@ -158,9 +176,9 @@
             }, 6000);
         }
 
-        
-        
-//        spotlight([]);
+       // spotlight(cardList);
+        chase(cardList, 0);
+       //  scan(cardList);
     </script>
     
 </body>
