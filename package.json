@@ -5,16 +5,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "live-server --no-browser ./public"
+    "dev": "webpack-dev-server --config webpack.development.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brandondc741/poster-wall.git"
+    "url": "git+https://github.com/brandondc741/poster-wall-device.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/brandondc741/poster-wall/issues"
+  "homepage": "https://github.com/brandondc741/poster-wall#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^6.26.3",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   },
-  "homepage": "https://github.com/brandondc741/poster-wall#readme"
+  "dependencies": {
+    "babel-loader": "^8.0.4"
+  }
 }
